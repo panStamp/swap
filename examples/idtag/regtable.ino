@@ -35,11 +35,10 @@ DEFINE_COMMON_REGISTERS()
  * Definition of custom registers
  */
 // Voltage supply
-static byte dtVoltSupply[2];
+static uint8_t dtVoltSupply[2];
 REGISTER regVoltSupply(dtVoltSupply, sizeof(dtVoltSupply), &updtVoltSupply, NULL);
 // ID number register (8 bytes)
-static byte dtIdNumber[8];
-REGISTER regIdNumber(dtString, sizeof(dtIdNumber), &updtIdNumber, NULL);
+REGISTER regIdNumber(dtIdNumber, sizeof(dtIdNumber), NULL, NULL);
 
 /**
  * Initialize table of registers

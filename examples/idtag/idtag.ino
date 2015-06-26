@@ -36,6 +36,11 @@
 #include "swap.h"
 
 /**
+ * Buffer containing ID number
+ */
+uint8_t dtIdNumber[8];
+
+/**
  * setup
  *
  * Arduino setup function
@@ -65,6 +70,10 @@ void setup()
     delay(400);
   }
 
+  // Tx interval never configured?
+  if (swap.txInterval == 0xFF)
+    swap.txInterval = 5;   // 5 sec by default
+
   // Transmit periodic Tx interval
   swap.getRegister(REGI_TXINTERVAL)->getData();
 
@@ -92,6 +101,6 @@ void loop()
   digitalWrite(LED, LOW);
 
   // Sleep
-  panstamp.sleepSec(5000);
+  swap.goToSleep();
 }
 
