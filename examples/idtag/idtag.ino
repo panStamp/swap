@@ -35,10 +35,14 @@
 #include "regtable.h"
 #include "swap.h"
 
-/**
- * Buffer containing ID number
- */
+// Maximum count of loops before transmitting Vcc
+#define MAX_COUNT_VCC  30
+
+// Buffer containing ID number
 uint8_t dtIdNumber[8];
+
+// Global counter
+uint16_t count = 0;
 
 /**
  * setup
@@ -95,8 +99,13 @@ void loop()
 
   // Transmit ID number
   swap.getRegister(REGI_IDNUMBER)->getData();
-  // Transmit power voltage
-  swap.getRegister(REGI_VOLTSUPPLY)->getData();
+
+  if (count-- <= 0)
+  {
+    count = MAX_COUNT_VCC;
+    // Transmit power voltage
+    swap.getRegister(REGI_VOLTSUPPLY)->getData();
+  }
 
   digitalWrite(LED, LOW);
 
