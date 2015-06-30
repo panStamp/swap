@@ -36,7 +36,7 @@
 #include "swap.h"
 
 // Maximum count of loops before transmitting Vcc
-#define MAX_COUNT_VCC  30
+#define MAX_COUNT_VCC  60
 
 // Buffer containing ID number
 uint8_t dtIdNumber[8];
