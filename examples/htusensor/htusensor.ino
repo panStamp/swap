@@ -45,7 +45,7 @@
 #include "Wire.h"
 #include "regtable.h"
 #include "swap.h"
-#include "HTU21D.h"
+#include "SparkFunHTU21D.h"
 
 
 //Create an instance of the sensor object
