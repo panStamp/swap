@@ -45,7 +45,7 @@
 /**
  * Product SWAP ID
  */
-#define SWAP_PRODUCT_ID         0x00000011L
+#define SWAP_PRODUCT_ID         15L
 
 #endif
 
