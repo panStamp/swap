@@ -34,7 +34,14 @@
  *
  * PANSTAMP_AVR and PANSTAMP_NRG
  * Binary outputs : pins 2, 4, 5, 6, 8, 9, 10 and 22
+ * PWM outputs: pins 27, 26, 21 and 20
+ *
+ * PANSTAMP_NRG 2
+ * Binary outputs : pins 3, 4, 5, 6, 7, 8, 9 and 10
  * PWM outputs: pins 3, 18, 20 and 21
+ *
+ * PANSTAMP_AVR 2 : pins 5 (A7) and 6 (A6) not supported as binary outputs.
+ * Better use a NRG 2 module instead.
  *
  * This sketch can be used to control loads (ON/OFF) and even run some type
  * of progressive control via PWM (dim lights, control motors, blinds, etc)
