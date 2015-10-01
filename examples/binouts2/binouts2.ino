@@ -54,10 +54,17 @@
 const byte maxRepeaterHop = 5;
 
 #ifdef PANSTAMP_NRG
+#ifdef __NRG_VERSION_2_0__
+// Binary output pins (Arduino digital pins)
+uint8_t binaryPin[] = {15, 14, 13, 12, 11, 10, 9, 8};
+// PWM output pins (Arduino digital pins)
+uint8_t pwmPin[] = {18, 19, 1, 2};
+#else
 // Binary output pins (Arduino digital pins)
 uint8_t binaryPin[] = {16, 18, 15, 14, 12, 11, 10, 1};
 // PWM output pins (Arduino digital pins)
 uint8_t pwmPin[] = {17, 2, 3, 5};
+#endif
 #else // PANSTAMP_AVR
 // Binary output pins (Arduino digital pins)
 uint8_t binaryPin[] = {8, 14, 15, 16, 17, 18, 19, 7};
