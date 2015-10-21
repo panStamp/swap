@@ -52,6 +52,11 @@ class CHANNEL
      * Time when the last measurements were taken (ms)
      */
     uint32_t lastTime;
+
+    /**
+     * Filtering values
+     */
+    long last, fLast;
     
   public:  
     /**
@@ -64,11 +69,6 @@ class CHANNEL
      */
     uint32_t rmsCurrent;
     
-    /**
-     * Peak current
-     */
-    uint32_t peakCurrent;
- 
     /**
      * CHANNEL
      * 

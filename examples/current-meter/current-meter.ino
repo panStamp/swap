@@ -41,16 +41,15 @@
 #include "swap.h"
 #include "thermistor.h"
 #include "channel.h"
-#include "HardwareSerial.h"
 
 
 const uint16_t VCC = 3000; // mV
 
 // Uncomment for AVR - Leave commented for NRG (NTC_PIN and NTC_POWER_PIN are already defined in pins.h)
 // Digital output used to power the thermistor circuit
-//#define NTC_POWER_PIN         10
+#define NTC_POWER_PIN         14
 // Analog pin used to read the NTC
-//#define NTC_PIN               A1
+#define NTC_PIN               A5
 
 // Macros
 #define powerThermistorOn()   digitalWrite(NTC_POWER_PIN, HIGH)
@@ -73,8 +72,6 @@ CHANNEL channel2(A3, 5);
  */
 void setup()
 {
-  Serial.begin(38400);
-
   // Init SWAP stack
   swap.init();
 
@@ -95,15 +92,21 @@ void setup()
  */
 void loop()
 {
-  // Transmit temperature value
-  //swap.getRegister(REGI_SENSOR)->getData();
   // Transmit power voltage
-
-  channel0.update();
-
   swap.getRegister(REGI_VOLTSUPPLY)->getData();
+  
+  // Transmit temperature value
+  swap.getRegister(REGI_TEMPERATURE)->getData();  
+
+  // Update current measurements
+  channel0.update();
+  channel1.update();
+  channel2.update();
+  
+  // Transmit current readings
+  swap.getRegister(REGI_CURRENT)->getData();
 
   // Sleep
-  panstamp.sleepSec(20);
+  panstamp.sleepSec(10);
 }
 

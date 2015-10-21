@@ -26,8 +26,6 @@
 
 #include "channel.h"
 
-#include "HardwareSerial.h"
-
 /**
  * CHANNEL
  * 
@@ -40,7 +38,10 @@ CHANNEL::CHANNEL(uint8_t iPin, uint16_t iScale)
 {
   currentPin = iPin;
   currentScale = iScale;
-  lastTime = 0;  
+  lastTime = 0;
+
+  last = 0;
+  fLast = 0;
 }
 
 /**
@@ -50,11 +51,8 @@ CHANNEL::CHANNEL(uint8_t iPin, uint16_t iScale)
  */
 void CHANNEL::update(void) 
 {
-  long reading[NB_OF_SAMPLES];
-  uint8_t i;
+  uint8_t i=0;
   long current, fCurrent, sqCurrent, sum=0;
-  static long last=0;
-  static long fLast=0;
   
   // Read Vcc in mV
   uint16_t vcc = panstamp.getVcc();
@@ -62,16 +60,14 @@ void CHANNEL::update(void)
   // Back to ADC ref = Vcc
   analogReference(DEFAULT); 
   
-  Serial.print("Vcc = "); Serial.println(vcc);
-  
-  peakCurrent = 0;
   for(i=0 ; i<NB_OF_SAMPLES ; i++)
   {
     current = analogRead(currentPin);
     current *= vcc;
     current /= 4095;
-    
+
     //------- High-pass filter ---------
+    //     (Removes de DC offset)
     fCurrent = fLast + current - last;
     fCurrent *= 255;
     fCurrent /= 256;
@@ -79,27 +75,14 @@ void CHANNEL::update(void)
     last = current;
     fLast = fCurrent;
     //----------------------------------    
-    
+
     fCurrent *= currentScale; // Scale current, still in mA
     sqCurrent = fCurrent * fCurrent;
     sum += sqCurrent;
     
-    // Update peak current
-    if (peakCurrent < fCurrent)
-      peakCurrent = fCurrent;
-    
-    reading[i] = fCurrent;    
-
     delay(1);
   }
-  
+ 
   rmsCurrent = (uint32_t) sqrt(sum / NB_OF_SAMPLES);
-  Serial.print("RMS current = ");
-  Serial.println(rmsCurrent);
-  
-  /*
-  for(i=0 ; i<NB_OF_SAMPLES ; i++)
-    Serial.println(reading[i]);
-  */
 }
 
