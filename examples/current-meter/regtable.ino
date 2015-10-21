@@ -38,8 +38,8 @@ DEFINE_COMMON_REGISTERS()
 static byte dtVoltSupply[2];
 REGISTER regVoltSupply(dtVoltSupply, sizeof(dtVoltSupply), &updtVoltSupply, NULL);
 // Sensor value register
-static byte dtHTSensor[2];
-REGISTER regHTSensor(dtHTSensor, sizeof(dtHTSensor), &updtHTSensor, NULL);
+static byte dtTemperature[2];
+REGISTER regHTSensor(dtTemperature, sizeof(dtTemperature), &updtTemperature, NULL);
 // Current readings (mA): 3 x RMS current (4-byte) and 3 x peak current (4-byte)
 static byte dtCurrent[24];
 REGISTER regCurrent(dtCurrent, sizeof(dtCurrent), &updtCurrent, NULL);
@@ -81,13 +81,13 @@ const void updtVoltSupply(byte rId)
 }
 
 /**
- * updtHTSensor
+ * updtTemperature
  *
- * Measure H+T sensor data and update register
+ * Measure temperature and update register
  *
  * @param rId  Register ID
  */
-const void updtHTSensor(byte rId)
+const void updtTemperature(byte rId)
 {
   uint16_t temp;
 
