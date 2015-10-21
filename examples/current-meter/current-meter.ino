@@ -107,6 +107,6 @@ void loop()
   swap.getRegister(REGI_CURRENT)->getData();
 
   // Sleep
-  panstamp.sleepSec(10);
+  swap.goToSleep();
 }
 
