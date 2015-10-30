@@ -43,17 +43,15 @@
 #include "channel.h"
 
 
-const uint16_t VCC = 3000; // mV
-
 // Uncomment for AVR - Leave commented for NRG (NTC_PIN and NTC_POWER_PIN are already defined in pins.h)
 // Digital output used to power the thermistor circuit
-#define NTC_POWER_PIN         14
+#define NTC_PWR_PIN         14
 // Analog pin used to read the NTC
 #define NTC_PIN               A5
 
 // Macros
-#define powerThermistorOn()   digitalWrite(NTC_POWER_PIN, HIGH)
-#define powerThermistorOff()  digitalWrite(NTC_POWER_PIN, LOW)
+#define powerThermistorOn()   digitalWrite(NTC_PWR_PIN, HIGH)
+#define powerThermistorOff()  digitalWrite(NTC_PWR_PIN, LOW)
 
 // Thermistor object
 THERMISTOR thermistor(NTC_PIN,        // Analog pin
@@ -61,9 +59,9 @@ THERMISTOR thermistor(NTC_PIN,        // Analog pin
                       3950,           // thermistor's beta coefficient
                       10000);         // Value of the series resistor
 
-CHANNEL channel0(A1, 5);
-CHANNEL channel1(A2, 5);
-CHANNEL channel2(A3, 5);
+CHANNEL channel0(A1, 30);
+CHANNEL channel1(A2, 30);
+CHANNEL channel2(A3, 30);
 
 /**
  * setup
@@ -72,17 +70,37 @@ CHANNEL channel2(A3, 5);
  */
 void setup()
 {
+  int i;
+  
   // Init SWAP stack
   swap.init();
 
   // Initialize LED pins
   pinMode(LED, OUTPUT);
   
-  pinMode(NTC_POWER_PIN, OUTPUT);    // Configure power pin. This pin will be used to power the thermistor
-  powerThermistorOff();          // Unpower sensor by default
+  pinMode(NTC_PWR_PIN, OUTPUT);    // Configure power pin. This pin will be used to power the thermistor
+  powerThermistorOff();              // Unpower sensor by default
   
   // Transmit product code
   swap.getRegister(REGI_PRODUCTCODE)->getData();
+
+  // Enter SYNC state
+  swap.enterSystemState(SYSTATE_SYNC);
+
+  // During 3 seconds, listen the network for possible commands whilst the LED blinks
+  for(i=0 ; i<6 ; i++)
+  {
+    digitalWrite(LED, HIGH);
+    delay(100);
+    digitalWrite(LED, LOW);
+    delay(400);
+  }
+
+  // Transmit periodic Tx interval
+  swap.getRegister(REGI_TXINTERVAL)->getData();
+
+   // Switch to Rx OFF state
+  swap.enterSystemState(SYSTATE_RXOFF);
 }
 
 /**

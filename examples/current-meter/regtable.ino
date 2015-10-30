@@ -72,7 +72,7 @@ DEFINE_COMMON_CALLBACKS()
 const void updtVoltSupply(byte rId)
 {  
   uint32_t batt = analogRead(A0);
-  batt *= VCC * 2;
+  batt *= panstamp.getVcc() * 2;
   batt /= 4095;
 
   // Update register value

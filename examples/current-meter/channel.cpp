@@ -21,7 +21,7 @@
  * USA
  * 
  * Author: Daniel Berenguer
- * Creation date: 16/04/2015
+ * Creation date: 04/16/2015
  */
 
 #include "channel.h"
