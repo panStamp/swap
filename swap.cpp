@@ -231,7 +231,7 @@ void SWAP::nvolatToFactoryDefaults(void)
 
   // SWAP address (pseudo-random number)
   uint16_t random = panstamp.GET_RANDOM();
-  uint8_t addr[] = {(random >> 8) & 0xFF, random & 0xFF};
+  uint8_t addr[] = {static_cast<uint8_t>((random >> 8) & 0xFF), static_cast<uint8_t>(random & 0xFF)};
   nvMem.write(addr, DEFAULT_NVOLAT_SECTION, NVOLAT_DEVICE_ADDR, sizeof(addr));
   
   // TX interval
