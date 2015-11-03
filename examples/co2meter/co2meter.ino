@@ -43,11 +43,11 @@
  
 #include "regtable.h"
 #include "swap.h"
-#include "HTU21D.h"
+#include <SparkFunHTU21D.h>
 #include "Wire.h"
 #include <HardwareSerial.h>
 
-#define CO2_ENABLE_PIN   15
+#define CO2_ENABLE_PIN   7
 
 uint16_t co2Level = 0; // Holds the actual CO2 value
 
@@ -61,7 +61,6 @@ HTU21D htu;
  */
 void setup()
 {
-  Serial.begin(9600);
   int i;
   
   pinMode(CO2_ENABLE_PIN, OUTPUT);
@@ -104,6 +103,9 @@ void setup()
  */
 void loop()
 {
+  // Open serial port
+  Serial.begin(9600);
+  
   // Enable CO2 sensor
   digitalWrite(CO2_ENABLE_PIN, HIGH);
   
@@ -116,11 +118,14 @@ void loop()
   co2Level = readCO2();  
   // Transmit CO2 sensor data
   swap.getRegister(REGI_CO2SENSOR)->getData();
-
   
   // disable CO2 sensor
   digitalWrite(CO2_ENABLE_PIN, LOW);
-     
+
+  // Close serial port
+  Serial.end();
+  delay(2);
+  
   // Sleep
   swap.goToSleep();
  }
