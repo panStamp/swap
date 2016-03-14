@@ -47,6 +47,7 @@
 #include "swap.h"
 #include "SparkFunHTU21D.h"
 
+//#define READ_VCC_FROM_A0  1
 
 //Create an instance of the sensor object
 HTU21D htu;

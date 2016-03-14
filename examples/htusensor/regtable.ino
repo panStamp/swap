@@ -67,9 +67,15 @@ DEFINE_COMMON_CALLBACKS()
  * 'rId'  Register ID
  */
 const void updtVoltSupply(byte rId)
-{  
-  unsigned long result = panstamp.getVcc();
-
+{
+  uint32_t result;
+  
+  #ifdef READ_VCC_FROM_A0
+  result = analogRead(A0);
+  #else
+  result = panstamp.getVcc();
+  #endif
+  
   // Update register value
   regTable[rId]->value[0] = (result >> 8) & 0xFF;
   regTable[rId]->value[1] = result & 0xFF;
