@@ -47,6 +47,8 @@
 #include "swap.h"
 #include "SparkFunHTU21D.h"
 
+// Uncomment the next line if you are running this application from a
+// battery-board
 //#define READ_VCC_FROM_A0  1
 
 //Create an instance of the sensor object
