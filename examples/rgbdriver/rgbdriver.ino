@@ -46,6 +46,9 @@
 RGBLED rgbLed = RGBLED(9, 6, 5);
 #endif
 #ifdef PANSTAMP_NRG
+#ifdef __NRG_VERSION_2_0__
+RGBLED rgbLed = RGBLED(19, 3, 4);
+#else
 RGBLED rgbLed = RGBLED(17, 2, 3);
 #endif
 
