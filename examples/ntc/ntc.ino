@@ -41,6 +41,9 @@
 #include "swap.h"
 #include "thermistor.h"
 
+// Uncomment next line if you are running this application from a
+// battery-board
+//#define READ_VCC_FROM_A0  1
 
 // Uncomment for AVR - Leave commented for NRG (NTC_PIN and NTC_POWER_PIN are already defined in pins.h)
 // Digital output used to power the thermistor circuit

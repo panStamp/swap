@@ -46,6 +46,10 @@
 #include "Wire.h"
 #include "Adafruit_BMP085.h"
 
+// Uncomment next line if you are running this application from a
+// battery-board
+//#define READ_VCC_FROM_A0  1
+
 /**
  * BMP180 sensor object
  */
