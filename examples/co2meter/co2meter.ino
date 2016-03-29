@@ -51,6 +51,8 @@
 
 uint16_t co2Level = 0; // Holds the actual CO2 value
 
+bool zeroCalibrate = false; // If true, start zero calibration
+
 // Humidity and temperature sensor
 HTU21D htu;
 
@@ -86,6 +88,25 @@ void setup()
     delay(100);
     digitalWrite(LED, LOW);
     delay(400);
+  }
+
+  if (zeroCalibrate)
+  {
+    digitalWrite(LED, HIGH);
+    zeroCalibrate = false;
+
+    // Start zero calibration
+    Serial.println("K 2");
+    delay(500);
+    Serial.println("G");
+    delay(500);
+    Serial.println("K 1");
+    delay(500);
+
+    // Reset calibration register
+    uint8_t def = 0;
+    swap.getRegister(REGI_CO2CALIB)->setData(&def);
+    digitalWrite(LED, LOW);
   }
 
   // Transmit periodic Tx interval

@@ -44,7 +44,9 @@ REGISTER regCo2Sensor(dtCo2Sensor, sizeof(dtCo2Sensor), &updtCo2Sensor, NULL);
 // Htu Sensor value 
 static byte dtHtuSensor[4];
 REGISTER regHtuSensor(dtHtuSensor, sizeof(dtHtuSensor), &updtHtuSensor, NULL);
-
+// CO2 sensor Zero calibration
+static byte dtCo2Calib[1];
+REGISTER regCo2Calib(dtCo2Calib, sizeof(dtCo2Calib), NULL, &setCo2Calib);
 
 
 /**
@@ -53,7 +55,8 @@ REGISTER regHtuSensor(dtHtuSensor, sizeof(dtHtuSensor), &updtHtuSensor, NULL);
 DECLARE_REGISTERS_START()
   &regVoltSupply,
   &regCo2Sensor,
-  &regHtuSensor
+  &regHtuSensor,
+  &regCo2Calib
 DECLARE_REGISTERS_END()
 
 /**
@@ -70,7 +73,7 @@ DEFINE_COMMON_CALLBACKS()
  *
  * Measure voltage supply and update register
  *
- * 'rId'  Register ID
+ * @param rId  Register ID
  */
 const void updtVoltSupply(byte rId)
 {  
@@ -86,7 +89,7 @@ const void updtVoltSupply(byte rId)
  *
  * Update CO2 register
  *
- * 'rId'  Register ID
+ * @param rId  Register ID
  */
 const void updtCo2Sensor(byte rId)
 {      
@@ -100,7 +103,7 @@ const void updtCo2Sensor(byte rId)
  *
  * Measure T+H sensor data and update register
  *
- * 'rId'  Register ID
+ * @param rId  Register ID
  */
 const void updtHtuSensor(byte rId)
 {
@@ -116,5 +119,29 @@ const void updtHtuSensor(byte rId)
   dtHtuSensor[1] = temperature & 0xFF;
   dtHtuSensor[2] = (humidity >> 8) & 0xFF;
   dtHtuSensor[3] = humidity & 0xFF;
+}
+
+/**
+ * setCo2Calib
+ *
+ * Set PWM levels
+ *
+ * @param rId  Register ID
+ * @paramlevels If 1, enter zero calibration
+ */
+const void setCo2Calib(byte rId, byte *calib)
+{ 
+  switch (calib[0])
+  {
+    case 1:   // Enter Zero calibration procedure
+      // Update register
+      dtCo2Calib[0] = calib[0];
+      zeroCalibrate = true;
+      break;
+    default:
+      // Reset calibration register
+      dtCo2Calib[0] = 0;
+      break;
+  }
 }
 
