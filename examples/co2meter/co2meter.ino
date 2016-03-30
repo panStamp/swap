@@ -57,6 +57,42 @@ bool zeroCalibrate = false; // If true, start zero calibration
 HTU21D htu;
 
 /**
+ * zeroCalibration
+ * 
+ * Zero-calibrate CO2 sensor
+ */
+void zeroCalibration(void)
+{
+  zeroCalibrate = false;
+  digitalWrite(LED, HIGH);
+  // Enable CO2 sensor
+  digitalWrite(CO2_ENABLE_PIN, HIGH);
+  
+  Serial.begin(9600);
+  
+  // Start zero calibration
+  Serial.println("");
+  delay(500);
+  Serial.println("K 2");
+  delay(1000);
+  Serial.println("G");
+  delay(1000);
+  Serial.println("K 1");
+  delay(1000);
+  
+  // Reset calibration register
+  uint8_t def = 0;
+  swap.getRegister(REGI_CO2CALIB)->setData(&def);
+  
+  // disable CO2 sensor
+  digitalWrite(CO2_ENABLE_PIN, LOW);
+
+  Serial.end();
+
+  digitalWrite(LED, LOW);
+}
+ 
+/**
  * setup
  *
  * Arduino setup function
@@ -90,24 +126,9 @@ void setup()
     delay(400);
   }
 
+  // Calibrate sensor?
   if (zeroCalibrate)
-  {
-    digitalWrite(LED, HIGH);
-    zeroCalibrate = false;
-
-    // Start zero calibration
-    Serial.println("K 2");
-    delay(500);
-    Serial.println("G");
-    delay(500);
-    Serial.println("K 1");
-    delay(500);
-
-    // Reset calibration register
-    uint8_t def = 0;
-    swap.getRegister(REGI_CO2CALIB)->setData(&def);
-    digitalWrite(LED, LOW);
-  }
+    zeroCalibration();
 
   // Transmit periodic Tx interval
   swap.getRegister(REGI_TXINTERVAL)->getData();
