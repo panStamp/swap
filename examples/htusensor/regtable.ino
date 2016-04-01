@@ -72,6 +72,8 @@ const void updtVoltSupply(byte rId)
   
   #ifdef READ_VCC_FROM_A0
   result = analogRead(A0);
+  result *= 3300;
+  result /= 0xFFF;
   #else
   result = panstamp.getVcc();
   #endif
