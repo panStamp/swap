@@ -154,7 +154,7 @@ const void setSysState(uint8_t id, uint8_t *state)       \
  * 'id'       Register ID                                   \
  * 'channel'  New channel                                   \
  */                                                         \
-const void setFreqChannel(uint8_t id, uint8_t *channel)           \
+const void setFreqChannel(uint8_t id, uint8_t *channel)     \
 {                                                           \
   if (channel[0] != regFreqChannel.value[0])                \
   {                                                         \
@@ -164,8 +164,6 @@ const void setFreqChannel(uint8_t id, uint8_t *channel)           \
     packet.send();                                          \
     /* Update register value */                             \
     panstamp.radio.setChannel(channel[0]);                  \
-    /* Restart device */                                    \
-    panstamp.reset();                                       \
   }                                                         \
 }                                                           \
                                                             \
