@@ -89,7 +89,7 @@ const void updtVoltSupply(byte rId)
  */
 const void updtSensor(byte rId)
 {
-  uint16_t temp;
+  int temp;
 
   powerThermistorOn();        // Power thermistor
   temp = thermistor.read();   // Read temperature
