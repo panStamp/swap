@@ -196,7 +196,10 @@ class SWAP
      */
     inline REGISTER * getRegister(unsigned char regId)
     {
-      return regTable[regId]; 
+      if (regId < regTableSize)
+        return regTable[regId];
+
+      return NULL;
     }
     
     /**
