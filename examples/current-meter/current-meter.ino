@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 panStamp S.L.U. <contact@panstamp.com>
+ * Copyright (c) 2016 panStamp S.L.U. <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -47,7 +47,7 @@
 // Digital output used to power the thermistor circuit
 #define NTC_PWR_PIN         14
 // Analog pin used to read the NTC
-#define NTC_PIN               A5
+#define NTC_PIN             A5
 
 // Macros
 #define powerThermistorOn()   digitalWrite(NTC_PWR_PIN, HIGH)
@@ -59,9 +59,9 @@ THERMISTOR thermistor(NTC_PIN,        // Analog pin
                       3950,           // thermistor's beta coefficient
                       10000);         // Value of the series resistor
 
-CHANNEL channel0(A1, 30);
-CHANNEL channel1(A2, 30);
-CHANNEL channel2(A3, 30);
+CHANNEL channel0(A1, 22, 30);
+CHANNEL channel1(A2, 21, 30);
+CHANNEL channel2(A3, 20, 30);
 
 /**
  * setup
@@ -71,6 +71,11 @@ CHANNEL channel2(A3, 30);
 void setup()
 {
   int i;
+
+  // Start current channels
+  channel0.begin();
+  channel1.begin();
+  channel2.begin();
   
   // Init SWAP stack
   swap.init();
@@ -125,6 +130,7 @@ void loop()
   swap.getRegister(REGI_CURRENT)->getData();
 
   // Sleep
-  swap.goToSleep();
+  //gwap.goToSleep();  // Enabled when powering the board from batteries
+  delay(10000);  // Enabled when powering the board from external PSU
 }
 

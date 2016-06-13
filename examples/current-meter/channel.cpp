@@ -1,7 +1,7 @@
 /**
  * channel.cpp
  *
- * Copyright (c) 2015 Daniel Berenguer <dberenguer@usapiens.com>
+ * Copyright (c) 2016 Daniel Berenguer <dberenguer@usapiens.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -21,28 +21,10 @@
  * USA
  * 
  * Author: Daniel Berenguer
- * Creation date: 04/16/2015
+ * Creation date: 03/31/2016
  */
 
 #include "channel.h"
-
-/**
- * CHANNEL
- * 
- * Class constructor
- *
- * @param iPin   Arduino analog pin connected to the AC current sensor
- * @param iScale Scaling factor for the current signal
- */
-CHANNEL::CHANNEL(uint8_t iPin, uint16_t iScale)
-{
-  currentPin = iPin;
-  currentScale = iScale;
-  lastTime = 0;
-
-  last = 0;
-  fLast = 0;
-}
 
 /**
  * update
@@ -53,6 +35,10 @@ void CHANNEL::update(void)
 {
   uint8_t i=0;
   long current, fCurrent, sqCurrent, sum=0;
+
+  // Power current channel
+  digitalWrite(pwrPin, HIGH);
+  delay(100);
   
   // Read Vcc in mV
   uint16_t vcc = panstamp.getVcc();
@@ -82,7 +68,10 @@ void CHANNEL::update(void)
     
     delay(1);
   }
- 
+
+  // Unpower channel
+  digitalWrite(pwrPin, LOW);
+  
   rmsCurrent = (uint32_t) sqrt(sum / NB_OF_SAMPLES);
 }
 

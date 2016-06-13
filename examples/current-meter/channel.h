@@ -1,7 +1,7 @@
 /**
  * channel.h
  *
- * Copyright (c) 2011 Daniel Berenguer <dberenguer@usapiens.com>
+ * Copyright (c) 2016 Daniel Berenguer <dberenguer@usapiens.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -21,7 +21,7 @@
  * USA
  * 
  * Author: Daniel Berenguer
- * Creation date: 08/24/2012
+ * Creation date: 03/31/2016
  */
 
 #ifndef _CHANNEL_H
@@ -47,7 +47,12 @@ class CHANNEL
      * Arduino analog pin connected to the AC current signal
      */
     uint8_t currentPin;
-   
+
+    /**
+     * Arduino digital pin powering the current channel
+     */
+    uint8_t pwrPin;
+    
     /**
      * Time when the last measurements were taken (ms)
      */
@@ -75,10 +80,31 @@ class CHANNEL
      * Class constructor
      *
      * @param iPin   Arduino analog pin connected to the AC current sensor
+     * @param pPin   Arduino digital pin powering the current meter channel
      * @param iScale Scaling factor for the current signal
      */
-    CHANNEL(uint8_t iPin, uint16_t iScale);
+    inline CHANNEL(uint8_t iPin, uint8_t pPin, uint16_t iScale)
+    {
+      currentPin = iPin;
+      pwrPin = pPin;
+      currentScale = iScale;
+      lastTime = 0;
+    
+      last = 0;
+      fLast = 0;
+    }
 
+    /**
+     * begin
+     * 
+     * Start current channel
+     */
+    inline void begin(void)
+    {
+      pinMode(pwrPin, OUTPUT);
+      digitalWrite(pwrPin, LOW);
+    }
+    
     /**
      * update
      * 

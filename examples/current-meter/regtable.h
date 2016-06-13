@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 panStamp S.L.U. <contact@panstamp.com>
+ * Copyright (c) 2016 panStamp S.L.U. <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
