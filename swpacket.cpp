@@ -165,7 +165,7 @@ bool SWPACKET::send(void)
   #endif
 
   i = SWAP_NB_TX_TRIES;
-  while(!(res = panstamp.radio.sendData(ccPacket)) && i>1)
+  while(!(res = panstamp.sendData(ccPacket)) && i>1)
   {
     i--;
     delay(SWAP_TX_DELAY);
