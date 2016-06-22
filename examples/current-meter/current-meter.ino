@@ -125,12 +125,12 @@ void loop()
   channel0.update();
   channel1.update();
   channel2.update();
-  
+
   // Transmit current readings
   swap.getRegister(REGI_CURRENT)->getData();
 
   // Sleep
-  //gwap.goToSleep();  // Enabled when powering the board from batteries
-  delay(10000);  // Enabled when powering the board from external PSU
+  swap.goToSleep();  // Enabled when powering the board from batteries
+  //delay(10000);  // Enabled when powering the board from external PSU
 }
 
