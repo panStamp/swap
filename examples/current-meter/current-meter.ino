@@ -34,7 +34,7 @@
  *
  * Associated Device Definition Files, defining registers, endpoints and
  * configuration parameters:
- * current-meter.xml (Temperature sensor)
+ * currentmeter.xml (Temperature sensor)
  */
  
 #include "regtable.h"
