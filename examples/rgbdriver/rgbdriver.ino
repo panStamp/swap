@@ -51,6 +51,7 @@ RGBLED rgbLed = RGBLED(19, 3, 4);
 #else
 RGBLED rgbLed = RGBLED(17, 2, 3);
 #endif
+#endif
 
 // Address of the associated Chronos watch
 byte chronosDevAddr = 0;
