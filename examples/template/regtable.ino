@@ -28,6 +28,10 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()

@@ -28,6 +28,12 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void setBinOutput(byte rId, byte *state);
+const void setPwmOutput(byte rId, byte *level);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()

@@ -28,11 +28,14 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void setRGBlevel(byte rId, byte *levels);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS();
-
-const void setRGBlevel(byte rId, byte *levels);
 
 /*
  * Definition of custom registers

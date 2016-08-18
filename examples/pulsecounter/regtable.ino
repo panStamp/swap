@@ -28,6 +28,12 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void updtVoltSupply(byte rId);
+const void updtCounter(byte rId);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()
@@ -84,7 +90,7 @@ const void updtVoltSupply(byte rId)
  */
 const void updtCounter(byte rId)
 {
-  byte i, j;
+  byte i;
   
   // Update register
   for(i=0 ; i<4 ; i++)

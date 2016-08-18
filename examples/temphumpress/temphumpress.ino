@@ -64,6 +64,7 @@
  
 #include "regtable.h"
 #include "swap.h"
+#include "sensor.h"
 
 /**
  * Uncomment if you are reading Vcc from A7. All battery-boards do this

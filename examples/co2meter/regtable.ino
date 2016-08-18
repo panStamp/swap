@@ -28,6 +28,14 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void updtVoltSupply(byte rId);
+const void updtCo2Sensor(byte rId);
+const void updtHtuSensor(byte rId);
+const void setCo2Calib(byte rId, byte *calib);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()

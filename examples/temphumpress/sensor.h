@@ -87,5 +87,10 @@
 #define tempSensorOFF();  digitalWrite(PIN_PWRTEMP, LOW);
 #endif
 
+int sensor_ReadTempHum(void);
+int sensor_ReadTemp(void);
+int sensor_ReadTempPress(void);
+void initSensor(void);
+
 #endif
 

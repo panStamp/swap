@@ -28,6 +28,12 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void updtVoltSupply(byte rId);
+const void updtSensor(byte rId);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()
@@ -36,7 +42,6 @@ DEFINE_COMMON_REGISTERS()
  * Definition of custom registers
  */
 // Voltage supply
-static uint32_t voltageSupply = 3300;
 static uint8_t dtVoltSupply[2];
 REGISTER regVoltSupply(dtVoltSupply, sizeof(dtVoltSupply), &updtVoltSupply, NULL);
 // Sensor value register

@@ -56,6 +56,48 @@ bool zeroCalibrate = false; // If true, start zero calibration
 // Humidity and temperature sensor
 HTU21D htu;
 
+
+/**
+ * readCO2
+ *
+ * Read CO2 level
+ *
+ * @return Current CO2 level
+ */
+uint16_t readCO2(void) 
+{
+ uint8_t co2Buffer[25];
+ uint8_t co2Index = 0;
+ uint8_t  ch;
+ bool start = false, stop = false;
+ 
+ while(!stop)
+  {
+    if(Serial.available())
+    { 
+      ch = Serial.read();
+      switch (ch)
+      {
+        case 'Z':
+          start = true;
+          break;
+        case 'z':      
+          stop = true;
+          break;
+        default:
+          if (start)
+          {
+            if(ch != 0x20)
+              co2Buffer[co2Index++] = ch;
+          }    
+          break;          
+      }
+    }
+  }
+
+  return (uint16_t) atoi((char*)co2Buffer);
+}
+
 /**
  * zeroCalibration
  * 
@@ -172,43 +214,3 @@ void loop()
   swap.goToSleep();
  }
 
-/**
- * readCO2
- *
- * Read CO2 level
- *
- * @return Current CO2 level
- */
-uint16_t readCO2(void) 
-{
- uint8_t co2Buffer[25];
- uint8_t co2Index = 0;
- uint8_t  ch;
- bool start = false, stop = false;
- 
- while(!stop)
-  {
-    if(Serial.available())
-    { 
-      ch = Serial.read();
-      switch (ch)
-      {
-        case 'Z':
-          start = true;
-          break;
-        case 'z':      
-          stop = true;
-          break;
-        default:
-          if (start)
-          {
-            if(ch != 0x20)
-              co2Buffer[co2Index++] = ch;
-          }    
-          break;          
-      }
-    }
-  }
-
-  return (uint16_t) atoi((char*)co2Buffer);
-}

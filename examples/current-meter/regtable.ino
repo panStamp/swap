@@ -27,6 +27,13 @@
 #include "regtable.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void updtVoltSupply(byte rId);
+const void updtTemperature(byte rId);
+const void updtCurrent(byte rId);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()

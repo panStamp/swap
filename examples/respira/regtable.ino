@@ -29,6 +29,13 @@
 #include "sensor.h"
 
 /**
+ * Declaration of custom functions
+ */
+const void updtVoltSupply(byte rId);
+const void updtHtSensor(byte rId);
+const void updtAirSensor(byte rId);
+
+/**
  * Definition of common registers
  */
 DEFINE_COMMON_REGISTERS()
