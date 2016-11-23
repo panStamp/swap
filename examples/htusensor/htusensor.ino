@@ -28,6 +28,8 @@
  * This sketch generates a SWAP temperature+humidity sensor device
  * relying on HTU21D sensor and Sparkfun's library
  * https://github.com/sparkfun/HTU21D_Breakout
+ * Important notice:
+ * ONLY VERSION 1.1.1 OF THIS LIBRARY WORKS WITH PANSTAMP NRG
  *
  * This library and the current sketch is also compatible with Silabs'
  * SI7021 temperature+humidity sensor. SI7021 is the sensor that can be
