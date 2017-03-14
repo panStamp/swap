@@ -34,7 +34,8 @@
 void CHANNEL::update(void) 
 {
   uint8_t i=0;
-  long current, fCurrent, sqCurrent, sum=0;
+  long current, fCurrent;
+  unsigned long sqCurrent, sum=0;
 
   // Power current channel
   digitalWrite(pwrPin, HIGH);
