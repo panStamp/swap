@@ -102,9 +102,15 @@ void setup()
 
   // Configure output pins
   for(i=0 ; i<sizeof(binaryPin) ; i++)
+  {
     pinMode(binaryPin[i], OUTPUT);
+    digitalWrite(binaryPin[i], LOW);
+  }
   for(i=0 ; i<sizeof(pwmPin) ; i++)
+  {
     pinMode(pwmPin[i], OUTPUT);
+    digitalWrite(pwmPin[i], LOW);
+  }
  
   // Init SWAP stack
   swap.init();
