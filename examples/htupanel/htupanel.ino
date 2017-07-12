@@ -64,6 +64,9 @@ HTU21D htu;
 const uint8_t inputPin[] = {15, 14, 13, 12, 9, 7, 2, 1};
 #define NBOF_INPUTS  sizeof(inputPin)/sizeof(*inputPin)
 
+// Pin interrupt flag
+bool pinChangeDetected = false;
+
 /**
  * pinChange
  * 
@@ -71,6 +74,7 @@ const uint8_t inputPin[] = {15, 14, 13, 12, 9, 7, 2, 1};
  */
 void pinChange(void)
 {
+  pinChangeDetected = true;
 }
 
 void setup()
@@ -118,12 +122,14 @@ void setup()
 
 void loop()
 {
-  digitalWrite(LED, HIGH);
+  //digitalWrite(LED, HIGH);
+  pinChangeDetected = false;
   // Transmit sensor data
   swap.getRegister(REGI_SENSOR)->getData();
-  digitalWrite(LED, LOW);
+  //digitalWrite(LED, LOW);
 
   // Sleep
-  swap.goToSleep();
+  if (!pinChangeDetected)
+    swap.goToSleep();
 }
 
